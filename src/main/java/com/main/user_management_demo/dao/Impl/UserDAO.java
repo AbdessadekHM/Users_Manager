@@ -56,26 +56,29 @@ public class UserDAO implements IUserDAO {
     }
 
     @Override
-    public void updateUser(User user) {
+    public boolean updateUser(User user) {
         em.getTransaction().begin();
         em.merge(user);
         em.getTransaction().commit();
+        return true;
 
     }
 
     @Override
-    public void addUser(User user) {
+    public boolean addUser(User user) {
         em.getTransaction().begin();
         em.persist(user);
         em.getTransaction().commit();
+        return true;
 
     }
 
     @Override
-    public void deleteUser(int id) {
+    public boolean deleteUser(int id) {
         em.getTransaction().begin();
         em.remove(em.find(User.class, id));
         em.getTransaction().commit();
+        return true;
 
     }
 }
