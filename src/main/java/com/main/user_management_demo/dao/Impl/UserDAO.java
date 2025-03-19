@@ -57,9 +57,20 @@ public class UserDAO implements IUserDAO {
 
     @Override
     public boolean updateUser(User user) {
+        Query query = em.createQuery("update User u set u.username = :username , u.firstName = :firstname, u.job = :job, u.lastName = :lastname, u.email = :email where u.id = :id");
+        query.setParameter("username", user.getUsername());
+        query.setParameter("firstname", user.getFirstName());
+        query.setParameter("job", user.getJob());
+        query.setParameter("lastname", user.getLastName());
+        query.setParameter("email", user.getEmail());
+        query.setParameter("id", user.getId());
+
+        /*
+        //"i did comment this piece of code, because it was throws an error of [id] is a primary key so can't update, i think that come from how merge works"
         em.getTransaction().begin();
         em.merge(user);
         em.getTransaction().commit();
+         */
         return true;
 
     }

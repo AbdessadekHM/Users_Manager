@@ -3,9 +3,12 @@ package com.main.user_management_demo.models;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name="users")
-public class User {
+public class User implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -17,6 +20,7 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "job_id")
     private Job job;
+
 
 
     public int getId() {
@@ -57,5 +61,13 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Job getJob() {
+        return job;
+    }
+
+    public void setJob(Job job) {
+        this.job = job;
     }
 }

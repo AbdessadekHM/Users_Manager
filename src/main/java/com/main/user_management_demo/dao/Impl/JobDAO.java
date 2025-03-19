@@ -13,6 +13,14 @@ public class JobDAO implements IJobDAO {
     private static JobDAO instance;
     private final EntityManager em;
 
+    public static JobDAO getInstance() {
+        if (instance == null) {
+            instance = new JobDAO();
+        }
+        return instance;
+    }
+
+
     private JobDAO() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("users_management");
         em = emf.createEntityManager();
@@ -45,6 +53,7 @@ public class JobDAO implements IJobDAO {
 
     @Override
     public boolean updateJob(Job job) {
+        // i can modify this, if i encounter the same error as user dao
         em.getTransaction().begin();
         em.merge(job);
         em.getTransaction().commit();
