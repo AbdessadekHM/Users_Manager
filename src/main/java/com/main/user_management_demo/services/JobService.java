@@ -31,4 +31,13 @@ public class JobService {
    public boolean addJob(Job job){
        return jobDAO.addJob(job);
    }
+
+    public Job createJob(String jobName, String salary) {
+        Job job = new Job();
+        job.setName(jobName);
+        job.setSalary(salary);
+        return job;
+    }
+
 }
+

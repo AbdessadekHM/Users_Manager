@@ -24,12 +24,7 @@ public class JobBean implements Serializable {
 
     public JobBean() {}
 
-    public Job createJob(String jobName, String salary) {
-       Job job = new Job();
-       job.setName(jobName);
-       job.setSalary(salary);
-       return job;
-    }
+
 
     public String Submit(){
 
@@ -37,19 +32,28 @@ public class JobBean implements Serializable {
             setMessage("all fields are required");
             return "";
         }
-        boolean isExist = jobService.checkByNameIfJobExist(jobName);
-        System.out.println(isExist);
-        if(isExist){
+
+        if(jobService.checkByNameIfJobExist(jobName)){
 
             setMessage("Job Already Exist");
             return "";
         }
-        jobService.addJob(createJob(jobName, salary));
+
+        jobService.addJob(jobService.createJob(jobName, salary));
+
        return "addJob?faces-redirect=true";
     }
+
+
+
     public boolean isFullField(){
         return jobName != null && salary != null;
     }
+
+
+
+
+    /* getters && setters */
 
     public String getMessage() {
         return message;

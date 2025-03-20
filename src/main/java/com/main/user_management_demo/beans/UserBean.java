@@ -30,24 +30,14 @@ public class UserBean implements Serializable {
 
    public UserBean() {}
 
-    public User createUser(String username, String firstName, String lastName, String email, Job job) {
-        User user = new User();
-        user.setUsername(username);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setEmail(email);
-        user.setJob(job);
-        return user;
-    }
+
+
 
     public String Submit(){
 
 
-
         Job job = jobService.getJobByName(jobName);
         System.out.println(job);
-
-
 
         if(!jobService.checkByNameIfJobExist(jobName)) {
             setMessage("Job not found");
@@ -60,17 +50,13 @@ public class UserBean implements Serializable {
         };
 
 
+        userService.addUser(userService.createUser(username, firstName, lastName, email, job));
 
-
-        userService.addUser(createUser(username, firstName, lastName, email, job));
-
-        return "addUser? faces-redirect = true";
-
+        return "index?faces-redirect = true";
 
     }
 
     public boolean isFullField() {
-
 
         return email != null && firstName != null && lastName != null && username != null && jobName != null;
 
@@ -79,7 +65,7 @@ public class UserBean implements Serializable {
 
 
 
-
+    /* getters and setters */
     public String getMessage() {
         return message;
     }
@@ -87,11 +73,6 @@ public class UserBean implements Serializable {
     public void setMessage(String message) {
         this.message = message;
     }
-
-
-
-
-
 
 
     public String getFirstName() {
