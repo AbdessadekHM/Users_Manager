@@ -15,7 +15,7 @@ import java.util.List;
 @ManagedBean(name = "user")
 @ApplicationScoped
 public class UserBean implements Serializable {
-    private String message;
+    private String message = "";
     private String JobName;
     private User user = new User();
     private final UserService userService = UserService.getInstance();
@@ -50,20 +50,37 @@ public class UserBean implements Serializable {
 
 
 
-    public void Submit(){
+    public String Submit(){
+
+
 
         Job job = jobService.getJobByName(JobName);
+        System.out.println(job);
 
-        if(jobService.checkByNameIfJobExist(JobName)) {
+        if(!jobService.checkByNameIfJobExist(JobName)) {
+
+            Job jobCreated = new Job();
+            jobCreated.setName("Engineer");
+            jobService.addJob(jobCreated);
+
+        }
+
+
+            if(!jobService.checkByNameIfJobExist(JobName)) {
             setMessage("Job not found");
-            return;
+            return "";
+
         }else if(!isFullField()){
+            //checking if all fields are typed
             setMessage("Fields are required");
-            return;
+            return "";
         };
 
+        job = jobService.getJobByName(JobName);
         user.setJob(job);
+        System.out.println(user.getJob().getId());
         userService.addUser(user);
+       return "addUser? faces-redirect = true";
 
 
     }
@@ -71,7 +88,7 @@ public class UserBean implements Serializable {
     public boolean isFullField() {
 
 
-        return user.getEmail() != null && user.getFirstName() != null && user.getLastName() != null && user.getJob() !=null && user.getUsername() != null;
+        return user.getEmail() != null && user.getFirstName() != null && user.getLastName() != null && user.getUsername() != null;
 
     }
 }

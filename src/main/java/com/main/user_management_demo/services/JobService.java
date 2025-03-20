@@ -28,4 +28,7 @@ public class JobService {
    public Job getJobByName(String name){
        return jobDAO.getJobByName(name);
    }
+   public boolean addJob(Job job){
+       return jobDAO.addJob(job);
+   }
 }
