@@ -10,5 +10,6 @@ public interface IJobDAO {
     public boolean addJob(Job job);
     public boolean updateJob(Job job);
     public boolean deleteJob(int id);
+    public Job getJobByName(String name);
 
 }

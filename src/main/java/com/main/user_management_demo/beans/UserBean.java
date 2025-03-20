@@ -35,32 +35,36 @@ public class UserBean implements Serializable {
         return !jobs.isEmpty();
     }
 
-    public String Submit(){
+    public void Submit(){
 
         System.out.println("Submit");
 
         System.out.println(isFullField());
-        Job job = new Job();
+        Job job = null;
+
+        job = JobDAO.getInstance().getJobByName(JobName);
+
+        if(job == null) {
+            setMessage("Job not found, add a job");
+            return;
+        };
         user.setJob(job);
 
         System.out.println(JobsExist());
 
         if(!JobsExist()) {
            setMessage("Add a Job first");
-           return "";
+           return ;
         }
         if(!isFullField() ){
-            return "addUser";
+            return ;
         }
 
         userDAO.addUser(user);
         System.out.println("User added successfully");
-        return "index?faces-redirect=true";
+
     }
-    public String test(){
-        System.out.println("test");
-        return "index?faces-redirect=true";
-    }
+
     public boolean isFullField() {
 
 

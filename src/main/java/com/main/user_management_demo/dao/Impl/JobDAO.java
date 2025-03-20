@@ -70,4 +70,18 @@ public class JobDAO implements IJobDAO {
         return true;
 
     }
+
+    @Override
+    public Job getJobByName(String name) {
+        Query query = em.createQuery("select j from Job j where j.name = :name");
+        query.setParameter("name", name);
+        List<Job> jobs = query.getResultList();
+
+        if(jobs.isEmpty()){
+            return null;
+        }
+
+
+        return (Job) jobs.getFirst();
+    }
 }
