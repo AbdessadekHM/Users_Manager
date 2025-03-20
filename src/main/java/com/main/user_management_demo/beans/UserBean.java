@@ -4,6 +4,8 @@ import com.main.user_management_demo.dao.Impl.JobDAO;
 import com.main.user_management_demo.dao.Impl.UserDAO;
 import com.main.user_management_demo.models.Job;
 import com.main.user_management_demo.models.User;
+import com.main.user_management_demo.services.JobService;
+import com.main.user_management_demo.services.UserService;
 import jakarta.faces.bean.ApplicationScoped;
 import jakarta.faces.bean.ManagedBean;
 
@@ -15,8 +17,10 @@ import java.util.List;
 public class UserBean implements Serializable {
     private String message;
     private String JobName;
-   private User user = new User();
-   private final UserDAO userDAO = UserDAO.getInstance();
+    private User user = new User();
+    private final UserService userService = UserService.getInstance();
+    private final JobService jobService = JobService.getInstance();
+
 
    public UserBean() {}
 
@@ -26,50 +30,6 @@ public class UserBean implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public boolean JobsExist() {
-
-        List<Job> jobs = JobDAO.getInstance().getAllJobs();
-
-        return !jobs.isEmpty();
-    }
-
-    public void Submit(){
-
-        System.out.println("Submit");
-
-        System.out.println(isFullField());
-        Job job = null;
-
-        job = JobDAO.getInstance().getJobByName(JobName);
-
-        if(job == null) {
-            setMessage("Job not found, add a job");
-            return;
-        };
-        user.setJob(job);
-
-        System.out.println(JobsExist());
-
-        if(!JobsExist()) {
-           setMessage("Add a Job first");
-           return ;
-        }
-        if(!isFullField() ){
-            return ;
-        }
-
-        userDAO.addUser(user);
-        System.out.println("User added successfully");
-
-    }
-
-    public boolean isFullField() {
-
-
-        return user.getEmail() != null && user.getFirstName() != null && user.getLastName() != null && user.getJob() !=null && user.getUsername() != null;
-
     }
 
     public String getMessage() {
@@ -86,5 +46,32 @@ public class UserBean implements Serializable {
 
     public void setJobName(String jobName) {
         JobName = jobName;
+    }
+
+
+
+    public void Submit(){
+
+        Job job = jobService.getJobByName(JobName);
+
+        if(jobService.checkByNameIfJobExist(JobName)) {
+            setMessage("Job not found");
+            return;
+        }else if(!isFullField()){
+            setMessage("Fields are required");
+            return;
+        };
+
+        user.setJob(job);
+        userService.addUser(user);
+
+
+    }
+
+    public boolean isFullField() {
+
+
+        return user.getEmail() != null && user.getFirstName() != null && user.getLastName() != null && user.getJob() !=null && user.getUsername() != null;
+
     }
 }
