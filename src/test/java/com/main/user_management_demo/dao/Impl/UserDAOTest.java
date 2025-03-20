@@ -2,6 +2,7 @@ package com.main.user_management_demo.dao.Impl;
 
 import com.main.user_management_demo.models.Job;
 import com.main.user_management_demo.models.User;
+import com.main.user_management_demo.services.UserService;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -13,17 +14,18 @@ class UserDAOTest {
 
     private final UserDAO instance = UserDAO.getInstance();
     private final JobDAO jobInstance = JobDAO.getInstance();
+    private final UserService userService = UserService.getInstance();
 
-    public Job createJob(int job_id){
+    public Job createJob(String name){
         Job job = new Job();
-        job.setId(job_id);
-        job.setName("Engineer");
+
+        job.setName(name);
         job.setSalary("3000");
         return job;
     }
     public User createUser(int id, Job job){
         User user = new User();
-        user.setId(id);
+
         user.setEmail("test@gmail.com");
         user.setFirstName("Test");
         user.setLastName("Test");
@@ -34,12 +36,12 @@ class UserDAOTest {
         return user;
     }
 
-    void createTestEnv(){
+    void createTestEnv(String name){
 
 
 
-        Job job = createJob(0);
-        jobInstance.addJob(job);
+        Job job = createJob(name);
+      jobInstance.addJob(job);
 
         User user = createUser(0,job);
         User user1 = createUser(1,job);
@@ -49,17 +51,17 @@ class UserDAOTest {
         User user5 = createUser(5,job);
 
 
-        instance.addUser(user);
-        instance.addUser(user1);
-        instance.addUser(user2);
-        instance.addUser(user3);
-        instance.addUser(user4);
-        instance.addUser(user5);
+        userService.addUser(user);
+        userService.addUser(user1);
+        userService.addUser(user2);
+        userService.addUser(user3);
+        userService.addUser(user4);
+        userService.addUser(user5);
     }
 
     @Test
     void getAndAddUser() {
-
+        createTestEnv("test");
 
 
         List<User> users = UserDAO.getInstance().getAllUsers();
@@ -71,7 +73,7 @@ class UserDAOTest {
     }
     @Test
     void updateAndGetById(){
-        createTestEnv();
+        createTestEnv("Teachers");
         User user = instance.getUserById(2);
         System.out.println(user.getId());
         user.setFirstName("Abdessadek");
@@ -82,14 +84,14 @@ class UserDAOTest {
     }
     @Test
     void deleteUser(){
-        createTestEnv();
+        createTestEnv("Teachers");
         User user = instance.getUserById(1);
         boolean isSuccess = instance.deleteUser(user.getId());
         assertTrue(isSuccess);
     }
     @Test
     void getUserById(){
-        createTestEnv();
+        createTestEnv("Director");
         User user = instance.getUserById(1);
         System.out.println(user.getId());
         user.setFirstName("Abdessadek");
@@ -98,5 +100,13 @@ class UserDAOTest {
 
         System.out.println(user.getFirstName());
         assertNotNull(user);
+    }
+    @Test
+    void AddUserFromService(){
+        createTestEnv("Professor");
+
+        List<User> users = instance.getAllUsers();
+        users.forEach(user -> System.out.println(user.getFirstName()));
+
     }
 }

@@ -16,7 +16,13 @@
             <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/users"/>
             <property name="jakarta.persistence.jdbc.user" value="root" />
             <property name="jakarta.persistence.jdbc.password" value="abdessadek"/>
-            <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
+            <property name="eclipselink.cache.shared.default" value="false"/>
+            <property name="eclipselink.jdbc.cache-statements" value="false"/>
+
+
+
+            <property name="eclipselink.ddl-generation.output-mode" value="database"/>
+            <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
 
         </properties>
 

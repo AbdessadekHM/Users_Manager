@@ -13,22 +13,42 @@
                <h1 class="text-1xl sm:text-1xl md:text-3xl">Users Manager</h1>
            </div>
             <ul class="flex justify-end items-center lg:w-[40%] px-2 flex-wrap w-[90%] sm:w-[90%] ">
-               <li class="hover:bg-gray-500 hover:rounded-md px-3 py-2 w-1/5 text-center cursor-pointer">
-                   Home
-               </li>
-                <li class="px-3 py-2 hover:bg-gray-500 hover:rounded-md w-1/5 text-center cursor-pointer">
-                    Add User
+
+
+                <li class="w-1/5">
+
+
+                    <h:form styleClass="w-full">
+
+                        <h:commandButton value="Home" action="index?faces-redirect=true" styleClass="px-3 py-2 hover:bg-gray-500 hover:rounded-md w-full text-center cursor-pointer"/>
+                    </h:form>
+                </li>
+                <li class="w-1/5">
+
+
+                    <h:form styleClass="w-full">
+
+                        <h:commandButton value="Add User" action="addUser?faces-redirect=true" styleClass="px-3 py-2 hover:bg-gray-500 hover:rounded-md w-full text-center cursor-pointer"/>
+                    </h:form>
                 </li>
                 <li class="px-3 py-2 hover:bg-gray-500 hover:rounded-md w-1/5 text-center cursor-pointer">
                     Users
+
                 </li>
                 <li class="px-3 py-2 hover:bg-gray-500 hover:rounded-md w-1/5 text-center cursor-pointer">
                     See Jobs
                 </li>
 
-                <li class="px-3 py-2 hover:bg-gray-500 hover:rounded-md w-1/5 text-center cursor-pointer">
-                    Add Job
+
+                <li class="w-1/5">
+
+
+                    <h:form styleClass="w-full">
+
+                        <h:commandButton value="Add Job" action="addJob?faces-redirect=true" styleClass="px-3 py-2 hover:bg-gray-500 hover:rounded-md w-full text-center cursor-pointer"/>
+                    </h:form>
                 </li>
+
             </ul>
         </nav>
     </ui:composition>

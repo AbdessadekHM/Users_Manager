@@ -15,58 +15,41 @@ import java.util.List;
 @ManagedBean(name = "user")
 @ApplicationScoped
 public class UserBean implements Serializable {
-    private String message = "";
-    private String JobName;
-    private User user = new User();
+
+
     private final UserService userService = UserService.getInstance();
     private final JobService jobService = JobService.getInstance();
+
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String username;
+    private String message = "";
+    private String jobName;
 
 
    public UserBean() {}
 
-    public User getUser() {
+    public User createUser(String username, String firstName, String lastName, String email, Job job) {
+        User user = new User();
+        user.setUsername(username);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setEmail(email);
+        user.setJob(job);
         return user;
     }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getJobName() {
-        return JobName;
-    }
-
-    public void setJobName(String jobName) {
-        JobName = jobName;
-    }
-
-
 
     public String Submit(){
 
 
 
-        Job job = jobService.getJobByName(JobName);
+        Job job = jobService.getJobByName(jobName);
         System.out.println(job);
 
-        if(!jobService.checkByNameIfJobExist(JobName)) {
-
-            Job jobCreated = new Job();
-            jobCreated.setName("Engineer");
-            jobService.addJob(jobCreated);
-
-        }
 
 
-            if(!jobService.checkByNameIfJobExist(JobName)) {
+        if(!jobService.checkByNameIfJobExist(jobName)) {
             setMessage("Job not found");
             return "";
 
@@ -76,11 +59,12 @@ public class UserBean implements Serializable {
             return "";
         };
 
-        job = jobService.getJobByName(JobName);
-        user.setJob(job);
-        System.out.println(user.getJob().getId());
-        userService.addUser(user);
-       return "addUser? faces-redirect = true";
+
+
+
+        userService.addUser(createUser(username, firstName, lastName, email, job));
+
+        return "addUser? faces-redirect = true";
 
 
     }
@@ -88,7 +72,65 @@ public class UserBean implements Serializable {
     public boolean isFullField() {
 
 
-        return user.getEmail() != null && user.getFirstName() != null && user.getLastName() != null && user.getUsername() != null;
+        return email != null && firstName != null && lastName != null && username != null && jobName != null;
 
+    }
+
+
+
+
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+
+
+
+
+
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getJobName() {
+       return jobName;
+    }
+    public void setJobName(String jobName) {
+
+        this.jobName = jobName;
     }
 }

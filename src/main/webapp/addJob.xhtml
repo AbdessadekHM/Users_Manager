@@ -8,18 +8,18 @@
 
 <ui:composition template="templates/standard.xhtml">
    <ui:define name="title">
-      <title>Add User</title>
+      <title>Add Job</title>
    </ui:define>
 
    <ui:define name="body">
       <h:body styleClass="h-[100%]">
-         <h:outputLabel value="#{user.message}" />
+
          <script type="application/javascript">
-            if("#{user.message}" !== ""){
+            if("#{job.message}" !== ""){
 
 
-               console.log("#{user.message}")
-               alert("#{user.message}")
+               console.log("#{job.message}")
+               alert("#{job.message}")
             }
 
          </script>
@@ -29,37 +29,20 @@
                <h:form styleClass="w-1/3 p-4 border-1 rounded-lg flex flex-col" >
 
                   <div class="m-5">
-                     <h1 class="text-3xl text-center">Add User</h1>
+                     <h1 class="text-3xl text-center">Add Job</h1>
                   </div>
                   <div class="m-5 flex justify-between items-center px-2">
-                     <h:outputLabel value="Username: " styleClass="text-[1.3rem]" />
-                     <h:inputText value="#{user.user.username}" styleClass="px-2 py-1 text-[1.1rem] focus:outline-none border-1 rounded-sm w-[70%] h-[2rem]"/>
+                     <h:outputLabel value="Name: " styleClass="text-[1.3rem]" />
+                     <h:inputText value="#{job.jobName}" styleClass="px-2 py-1 text-[1.1rem] focus:outline-none border-1 rounded-sm w-[70%] h-[2rem]"/>
                   </div>
 
                   <div class="m-5 flex justify-between items-center px-2">
                      <h:outputLabel value="Firstname: " styleClass="text-[1.3rem]" />
-                     <h:inputText value="#{user.user.firstName}" styleClass="px-2 py-1 text-[1.1rem] focus:outline-none border-1 rounded-sm w-[70%] h-[2rem]"/>
-                  </div>
-
-                  <div class="m-5 flex justify-between items-center px-2">
-                     <h:outputLabel value="Lastname: " styleClass="text-[1.3rem]" />
-                     <h:inputText value="#{user.user.lastName}" styleClass="px-2 py-1 text-[1.1rem] focus:outline-none border-1 rounded-sm w-[70%] h-[2rem]"/>
-                  </div>
-
-                  <div class="m-5 flex justify-between items-center px-2">
-                     <h:outputLabel value="Email: " styleClass="text-[1.3rem]" />
-                     <h:inputText value="#{user.user.email}" styleClass="px-2 py-1 text-[1.1rem] focus:outline-none border-1 rounded-sm w-[70%] h-[2rem]"/>
-
-                  </div>
-
-                  <div class="m-5 flex justify-between items-center px-2">
-                     <h:outputLabel value="Job: " styleClass="text-[1.3rem]" />
-                     <h:inputText value="#{user.jobName}" styleClass="px-2 py-1 text-[1.1rem] focus:outline-none border-1 rounded-sm w-[70%] h-[2rem]"/>
-
+                     <h:inputText value="#{job.salary}" styleClass="px-2 py-1 text-[1.1rem] focus:outline-none border-1 rounded-sm w-[70%] h-[2rem]"/>
                   </div>
 
                   <div class="m-5 flex justify-end items-center  px-2">
-                     <h:commandButton action="#{user.Submit()}"    value="Add" class="bg-gray-700 hover:bg-gray-500 text-white text-[1.2rem] px-6 py-2 rounded-md cursor-pointer"/>
+                     <h:commandButton action="#{job.Submit()}"    value="Add" class="bg-gray-700 hover:bg-gray-500 text-white text-[1.2rem] px-6 py-2 rounded-md cursor-pointer"/>
 
 
 
