@@ -8,12 +8,13 @@ import com.main.user_management_demo.services.JobService;
 import com.main.user_management_demo.services.UserService;
 import jakarta.faces.bean.ApplicationScoped;
 import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.RequestScoped;
 
 import java.io.Serializable;
 import java.util.List;
 
 @ManagedBean(name = "user")
-@ApplicationScoped
+@RequestScoped
 public class UserBean implements Serializable {
 
 
@@ -26,6 +27,7 @@ public class UserBean implements Serializable {
     private String username;
     private String message = "";
     private String jobName;
+    private List<User> users = userService.getAllUsers();
 
 
    public UserBean() {}
@@ -60,6 +62,15 @@ public class UserBean implements Serializable {
 
         return email != null && firstName != null && lastName != null && username != null && jobName != null;
 
+    }
+    public String remove(int id){
+      boolean isSuccess = userService.deleteUser(id);
+      if(!isSuccess){
+          setMessage("Faild to delete User");
+          return "";
+      }
+
+       return "users?faces-redirect = true";
     }
 
 
@@ -113,5 +124,13 @@ public class UserBean implements Serializable {
     public void setJobName(String jobName) {
 
         this.jobName = jobName;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }

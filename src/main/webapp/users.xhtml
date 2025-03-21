@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+<ui:composition template="templates/standard.xhtml">
+    <ui:define name="title">
+        <title>Users</title>
+    </ui:define>
+
+    <ui:define name="body">
+        <h:body styleClass="h-[100%]">
+
+
+            <div class="w-full min-h-[100vh]">
+
+                <div class="flex items-center justify-center h-[90%] w-full min-h-[1000px] ">
+
+
+
+                        <div class=" max-h-[500px] overflow-auto relative w-full flex justify-center ">
+
+                            <h:dataTable value="#{user.users}" var="user_record"
+                                         styleClass="w-[90%] p-2  "
+                                         headerClass="text-start p-2 border-1"
+                                         rowClasses=" p-2 border-1"
+                                         columnClasses="p-3"
+
+                            >
+
+
+                                <h:column>
+                                    <f:facet name="header">Username</f:facet>
+                                    <h:outputLabel value="#{user_record.getUsername()}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Firstname</f:facet>
+                                    <h:outputLabel value="#{user_record.getFirstName()}" />
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Lastname</f:facet>
+                                    <h:outputLabel value="#{user_record.getLastName()}" />
+                                </h:column>
+
+
+
+                                <h:column>
+                                    <f:facet name="header">Email</f:facet>
+                                    <h:outputLabel value="#{user_record.getEmail()}" />
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Job</f:facet>
+                                    <h:outputLabel value="#{user_record.getJob().getName()}" />
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Salary</f:facet>
+                                    <h:outputLabel value="#{user_record.getJob().getSalary()}" />
+                                </h:column>
+                                <h:column>
+                                    <h:form>
+
+                                        <h:commandButton value="remove" action="#{user.remove(user_record.getId())}" styleClass="bg-red-600 text-white px-3 py-2 rounded-md cursor-pointer"/>
+                                    </h:form>
+                                </h:column>
+
+                            </h:dataTable>
+                    </div>
+
+                </div>
+            </div>
+        </h:body>
+    </ui:define>
+</ui:composition>
+</html>

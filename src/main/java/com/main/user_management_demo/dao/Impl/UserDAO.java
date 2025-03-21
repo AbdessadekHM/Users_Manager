@@ -86,9 +86,11 @@ public class UserDAO implements IUserDAO {
 
     @Override
     public boolean deleteUser(int id) {
+
         em.getTransaction().begin();
         em.remove(em.find(User.class, id));
         em.getTransaction().commit();
+
         return true;
 
     }
