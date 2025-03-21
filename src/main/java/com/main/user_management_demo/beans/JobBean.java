@@ -7,6 +7,7 @@ import jakarta.faces.bean.ApplicationScoped;
 import jakarta.faces.bean.ManagedBean;
 
 import java.io.Serializable;
+import java.util.List;
 
 @ManagedBean(name = "job")
 @ApplicationScoped
@@ -20,6 +21,7 @@ public class JobBean implements Serializable {
     private String jobName;
     private String salary;
     private String message = "";
+    private List<Job> jobs = jobService.getAllJobs() ;
 
 
     public JobBean() {}
@@ -48,6 +50,15 @@ public class JobBean implements Serializable {
 
     public boolean isFullField(){
         return jobName != null && salary != null;
+    }
+
+    public String remove(int id){
+       boolean isSuccess = jobService.deleteJob(id);
+       if(!isSuccess){
+          setMessage("Failed to delete the job");
+          return "";
+       }
+       return "jobs?faces-redirect=true";
     }
 
 
@@ -79,5 +90,13 @@ public class JobBean implements Serializable {
 
     public void setSalary(String salary) {
         this.salary = salary;
+    }
+
+    public List<Job> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(List<Job> jobs) {
+        this.jobs = jobs;
     }
 }

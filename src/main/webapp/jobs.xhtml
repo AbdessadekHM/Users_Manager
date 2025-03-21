@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+<ui:composition template="templates/standard.xhtml">
+   <ui:define name="title">
+      <title>Jobs</title>
+   </ui:define>
+
+   <ui:define name="body">
+      <h:body styleClass="h-[100%]">
+
+
+         <div class="w-full min-h-[100vh]">
+
+            <div class="flex items-center justify-center h-[90%] w-full min-h-[1000px] ">
+
+
+
+               <div class=" max-h-[500px] overflow-auto relative w-full flex justify-center ">
+
+                  <h:dataTable value="#{job.jobs}" var="job_record"
+                               styleClass="w-[90%] p-2  "
+                               headerClass="text-start p-2 border-1"
+                               rowClasses=" p-2 border-1"
+                               columnClasses="p-3"
+
+                  >
+
+
+                     <h:column>
+                        <f:facet name="header">Username</f:facet>
+                        <h:outputLabel value="#{job_record.getName()}" />
+                     </h:column>
+                     <h:column>
+                        <f:facet name="header">Firstname</f:facet>
+                        <h:outputLabel value="#{job_record.getSalary()}" />
+                     </h:column>
+
+
+
+                  </h:dataTable>
+               </div>
+
+            </div>
+         </div>
+      </h:body>
+   </ui:define>
+</ui:composition>
+</html>

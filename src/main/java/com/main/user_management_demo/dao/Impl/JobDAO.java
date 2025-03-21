@@ -28,8 +28,10 @@ public class JobDAO implements IJobDAO {
     @Override
     public List<Job> getAllJobs() {
         List<Job> jobs;
+        em.getTransaction().begin();
         Query query = em.createQuery("select j from Job j");
         jobs = query.getResultList();
+        em.getTransaction().commit();
 
         return jobs;
     }
@@ -63,8 +65,9 @@ public class JobDAO implements IJobDAO {
 
     @Override
     public boolean deleteJob(int id) {
-        em.getTransaction().begin();
+
         Job job = em.find(Job.class, id);
+        em.getTransaction().begin();
         em.remove(job);
         em.getTransaction().commit();
         return true;

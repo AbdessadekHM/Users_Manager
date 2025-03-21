@@ -63,14 +63,16 @@ public class UserBean implements Serializable {
         return email != null && firstName != null && lastName != null && username != null && jobName != null;
 
     }
-    public String remove(int id){
+    public void remove(int id){
+        System.out.println("get called to delte this user");
       boolean isSuccess = userService.deleteUser(id);
       if(!isSuccess){
-          setMessage("Faild to delete User");
-          return "";
+          setMessage("Failed to delete User");
+//          return "";
       }
+      setUsers(userService.getAllUsers());
 
-       return "users?faces-redirect = true";
+ //      return "users?faces-redirect = true";
     }
 
 

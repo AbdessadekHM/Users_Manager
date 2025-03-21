@@ -30,18 +30,21 @@ public class UserDAO implements IUserDAO {
     @Override
     public List<User> getAllUsers() {
         List<User> users;
-
+        em.getTransaction().begin();
         Query query = em.createQuery("SELECT u FROM User u", User.class);
         users = query.getResultList();
+        em.getTransaction().commit();
         return users;
     }
 
     @Override
     public List<User> getUsersByJobId(int jobId) {
         List<User> users;
+        em.getTransaction().begin();
         Query query = em.createQuery("SELECT u FROM User u WHERE u.job.id = :jobId", User.class);
         query.setParameter("jobId", jobId);
         users = query.getResultList();
+        em.getTransaction().commit();
         return users;
     }
 
@@ -57,6 +60,7 @@ public class UserDAO implements IUserDAO {
 
     @Override
     public boolean updateUser(User user) {
+        em.getTransaction().begin();
         Query query = em.createQuery("update User u set u.username = :username , u.firstName = :firstname, u.job = :job, u.lastName = :lastname, u.email = :email where u.id = :id");
         query.setParameter("username", user.getUsername());
         query.setParameter("firstname", user.getFirstName());
@@ -65,6 +69,7 @@ public class UserDAO implements IUserDAO {
         query.setParameter("email", user.getEmail());
         query.setParameter("id", user.getId());
 
+        em.getTransaction().commit();
         /*
         //"i did comment this piece of code, because it was throws an error of [id] is a primary key so can't update, i think that come from how merge works"
         em.getTransaction().begin();
